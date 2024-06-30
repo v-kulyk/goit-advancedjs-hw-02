@@ -21,11 +21,13 @@ function onStartBtnClick() {
     refs.body.style.backgroundColor = getRandomHexColor();
   }, 1000);
   refs.startBtn.disabled = true;
+  refs.stopBtn.disabled = false
 }
 
 function onStopBtnClick() {
   clearInterval(timerId);
   refs.startBtn.disabled = false;
+  refs.stopBtn.disabled = true;
 }
 
 function getRandomHexColor() {

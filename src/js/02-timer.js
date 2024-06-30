@@ -7,6 +7,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const refs = {
   startBtn: document.querySelector('button[data-start]'),
+  datePicker: document.querySelector('#datetime-picker'),
   days: document.querySelector('[data-days]'),
   hours: document.querySelector('[data-hours]'),
   minutes: document.querySelector('[data-minutes]'),
@@ -29,7 +30,7 @@ const options = {
         title: 'Error',
         message: 'Please choose a date in the future',
         position: 'topCenter',
-      })
+      });
     }
     // Якщо користувач вибрав валідну дату (в майбутньому), кнопка «Start» стає активною.
     if (selectedDates[0] > new Date()) {
@@ -44,13 +45,15 @@ flatpickr('#datetime-picker', options);
 
 refs.startBtn.addEventListener('click', onStartBtnClick);
 function onStartBtnClick(event) {
+  refs.startBtn.disabled = true;
+  refs.datePicker.disabled = true;
   // Натисканням на кнопку «Start» починається відлік часу до обраної дати з моменту натискання.
   const timerId = setInterval(() => {
     let time = datesFromDatepicker[0] - new Date();
 
     if (time < 0) {
       clearInterval(timerId);
-      refs.startBtn.disabled = true;
+      refs.datePicker.disabled = false;
       return;
     }
 
